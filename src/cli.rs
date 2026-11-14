@@ -215,6 +215,14 @@ pub enum Commands {
       Downloads a remote recording and converts it to the latest asciicast format (v3)"
     )]
     Convert(Convert),
+
+    /// Extract submitted shell commands from a recording.
+    ///
+    /// Reconstruct a best-effort command history from recorded terminal output.
+    /// Print one entry per line, with internal newlines shown as literal \n.
+    /// Use --json for a JSON array of command strings. Input events are not required.
+    #[clap(about = "Extract shell command history", long_about)]
+    History(History),
 }
 
 #[derive(Debug, Args)]
@@ -587,6 +595,16 @@ pub struct Cat {
     /// List of recording files to concatenate. Provide at least two file paths (local files or HTTP(S) URLs). The files will be combined in the order specified. All files must be in asciicast format and may optionally be compressed with zstd.
     #[arg(required = true, num_args = 2.., help = "Recording files to concatenate", long_help)]
     pub file: Vec<String>,
+}
+
+#[derive(Debug, Args)]
+pub struct History {
+    /// Recording file, HTTP(S) URL, or '-' for standard input. Supports asciicast v1, v2 and v3, optionally compressed with zstd.
+    pub input: String,
+
+    /// Output a JSON array of command strings.
+    #[arg(long)]
+    pub json: bool,
 }
 
 #[derive(Debug, Args)]

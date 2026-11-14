@@ -9,6 +9,7 @@ mod fd;
 mod file_output;
 mod forwarder;
 mod hash;
+mod history;
 mod html;
 mod leb128;
 mod locale;
@@ -99,6 +100,7 @@ fn main() -> ExitCode {
         Commands::Play(cmd) => cmd.run().report(),
         Commands::Cat(cmd) => cmd.run().report(),
         Commands::Convert(cmd) => cmd.run().report(),
+        Commands::History(cmd) => cmd.run().report(),
         Commands::Upload(cmd) => cmd.run().report(),
         Commands::Auth(cmd) => cmd.run().report(),
     }
